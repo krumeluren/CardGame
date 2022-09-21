@@ -9,6 +9,7 @@ public class RepoContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new CardConfig());
     }
     public DbSet<Card> Cards { get; set; }
 }

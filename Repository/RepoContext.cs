@@ -12,4 +12,6 @@ public class RepoContext : DbContext
         modelBuilder.ApplyConfiguration(new CardConfig());
     }
     public DbSet<Card> Cards { get; set; }
+    public DbSet<CardHistory> CardHistories { get; set; }
+    public DbSet<Player> Players { get; set; }
 }

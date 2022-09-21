@@ -9,6 +9,8 @@ internal class CardConfig : IEntityTypeConfiguration<Card>
 {
     public void Configure(EntityTypeBuilder<Card> builder)
     {
+        builder.HasKey(c => c.Id);
+
         builder.HasData
             (
             new Card { Id = 1, Suit = "Hearts", Number = "Ace" },

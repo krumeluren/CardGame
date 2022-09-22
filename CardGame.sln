@@ -11,17 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{48EAB7DA-6531-49BB-8888-0350F07439D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{42E42DD5-2249-4980-B5BD-E0486B80B2D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{42E42DD5-2249-4980-B5BD-E0486B80B2D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{79398A92-7031-44BE-B833-3AAA8137087F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{79398A92-7031-44BE-B833-3AAA8137087F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{69E80749-D70D-45E2-BFE8-E225BCBBF6F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{69E80749-D70D-45E2-BFE8-E225BCBBF6F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceContracts", "ServiceContracts\ServiceContracts.csproj", "{9D735B84-6DB3-4E7B-90CE-A563456EDCB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceContracts", "ServiceContracts\ServiceContracts.csproj", "{9D735B84-6DB3-4E7B-90CE-A563456EDCB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{AA203FFC-C14D-427D-A12A-C420205E26B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{AA203FFC-C14D-427D-A12A-C420205E26B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{A1DAD628-EB95-4C7F-AF76-FCD6319CE024}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{33FDC665-DEE9-42D0-853A-5F00390B4A58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryTest", "RepositoryTest\RepositoryTest.csproj", "{01FC0040-7D9E-4812-B164-C998DFA2A1FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{AA203FFC-C14D-427D-A12A-C420205E26B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA203FFC-C14D-427D-A12A-C420205E26B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA203FFC-C14D-427D-A12A-C420205E26B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01FC0040-7D9E-4812-B164-C998DFA2A1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01FC0040-7D9E-4812-B164-C998DFA2A1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01FC0040-7D9E-4812-B164-C998DFA2A1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01FC0040-7D9E-4812-B164-C998DFA2A1FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{9D735B84-6DB3-4E7B-90CE-A563456EDCB9} = {A1DAD628-EB95-4C7F-AF76-FCD6319CE024}
 		{AA203FFC-C14D-427D-A12A-C420205E26B3} = {A1DAD628-EB95-4C7F-AF76-FCD6319CE024}
 		{A1DAD628-EB95-4C7F-AF76-FCD6319CE024} = {48EAB7DA-6531-49BB-8888-0350F07439D3}
+		{01FC0040-7D9E-4812-B164-C998DFA2A1FF} = {33FDC665-DEE9-42D0-853A-5F00390B4A58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06008FEB-551A-4E96-B4CE-B21FB45B7ADA}

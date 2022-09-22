@@ -1,20 +1,22 @@
 
+using CardGame;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using RepositoryContracts;
+using ServiceContracts;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<IRepoManager, RepoManager>();
+builder.Services.AddScoped<IRepoManager, RepoManager>();
 builder.Services.AddDbContext<RepoContext>(options 
     => options.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection")));
 
+builder.Services.AddScoped<IServiceManager, ServiceManager>();
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-
-
 
 var app = builder.Build();
 

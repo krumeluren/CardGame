@@ -1,0 +1,15 @@
+﻿@using CardGame.Data
+@using Domain
+<h3 class="text-secondary">Deck</h3>
+
+<div style="display: inline-flex; margin: auto">
+    @foreach(var card in MinigameCards){
+        <CardInDeck MinigameCard=@card></CardInDeck>
+    }
+    
+</div>
+
+@code {
+    [Parameter]
+    public List<MinigameCardHolder> MinigameCards { get; set; }
+}

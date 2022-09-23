@@ -1,0 +1,70 @@
+﻿@page "/minigame"
+@using CardGame.Data
+@using Domain
+@using ServiceContracts
+@inject IServiceManager _services
+<h1 class="text-primary">Minigame</h1>
+<h3 class="text-warning">Remaining cards in stack: @MyCardStack.Cards.Count();</h3>
+
+
+<button class="btn btn-primary" @onclick="ReplaceCheckedCards">Draw new cards</button>
+
+@if (true)
+{
+    <Deck MinigameCards=@MyDeck></Deck>
+}
+
+
+@code {
+
+
+
+    public List<MinigameCardHolder> MyDeck { get; set; } = new List<MinigameCardHolder>();
+
+    public CardStack MyCardStack { get; set; }
+
+    private readonly int _card_count = 5;
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyCardStack = new CardStack(_services);
+        MyCardStack.GenerateStack();
+
+        InsertCardsInDeck(MyCardStack.TakeRandom(_card_count));
+        StateHasChanged();
+    }
+
+
+    private void ReplaceCheckedCards()
+    {
+        var cards = new List<MinigameCardHolder>();
+        foreach (var card in MyDeck)
+        {
+            if (card.Selected)
+                cards.Add(card);
+        }
+        foreach (var card in cards)
+        {
+            ReplaceCard(card);
+        }
+    }
+
+    private void ReplaceCard(MinigameCardHolder card)
+    {
+        if (card.Selected)
+        {
+            if (MyDeck.Remove(card))
+                InsertCardsInDeck(MyCardStack.TakeRandom());
+        }
+    }
+
+    private void InsertCardsInDeck(List<Card> cardsToTakeFrom)
+    {
+        foreach (var card in cardsToTakeFrom)
+        {
+            MyDeck.Add(new MinigameCardHolder(card));
+        }
+    }
+
+
+}

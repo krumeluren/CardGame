@@ -1,25 +1,16 @@
 ﻿@page "/"
-@using Domain
-@using Repository
-@using ServiceContracts
-@using Services
-@inject IServiceManager _services
+@using CardGame.Pages
 
 <PageTitle>Index</PageTitle>
 
 <h1>Hello, world!</h1>
-<h2>@RandomCard.Suit @RandomCard.Number</h2>
-
-Welcome to your new app.
 
 
-@code{
-    public Card RandomCard { get; set; } = new Card();
 
-    protected override async Task OnInitializedAsync()
-    {
-        var cardStack = new CardStack(_services);
-        cardStack.CreateNewStack();
-        RandomCard = cardStack.Random();
-    }
-}
+<nav class="flex-column">
+    <div class="nav-item px-3">
+        <NavLink class="nav-link" href="minigame">
+            <span class="oi oi-puzzle-piece"></span> Start game
+        </NavLink>
+    </div>
+</nav>

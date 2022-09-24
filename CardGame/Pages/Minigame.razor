@@ -4,7 +4,7 @@
 @using ServiceContracts
 @inject IServiceManager _services
 <h1 class="text-primary">Minigame</h1>
-<h3 class="text-warning">Remaining cards in stack: @MyCardStack.Cards.Count();</h3>
+<h3 class="text-warning">Remaining cards in stack: @CardStack.Cards.Count();</h3>
 
 
 <button class="btn btn-primary" @onclick="ReplaceCheckedCards">Draw new cards</button>
@@ -16,34 +16,30 @@
 
 
 @code {
-
-
-
     public List<MinigameCardHolder> MyDeck { get; set; } = new List<MinigameCardHolder>();
 
-    public CardStack MyCardStack { get; set; }
+    public CardStack CardStack { get; set; }
 
     private readonly int _card_count = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        MyCardStack = new CardStack(_services);
-        MyCardStack.GenerateStack();
+        CardStack = new CardStack(_services);
+        CardStack.GenerateStack();
 
-        InsertCardsInDeck(MyCardStack.TakeRandom(_card_count));
+        InsertCardsInDeck(CardStack.TakeRandom(_card_count));
         StateHasChanged();
     }
 
-
     private void ReplaceCheckedCards()
     {
-        var cards = new List<MinigameCardHolder>();
+        var cardsToReplace = new List<MinigameCardHolder>();
         foreach (var card in MyDeck)
         {
             if (card.Selected)
-                cards.Add(card);
+                cardsToReplace.Add(card);
         }
-        foreach (var card in cards)
+        foreach (var card in cardsToReplace)
         {
             ReplaceCard(card);
         }
@@ -54,7 +50,7 @@
         if (card.Selected)
         {
             if (MyDeck.Remove(card))
-                InsertCardsInDeck(MyCardStack.TakeRandom());
+                InsertCardsInDeck(CardStack.TakeRandom());
         }
     }
 
@@ -65,6 +61,5 @@
             MyDeck.Add(new MinigameCardHolder(card));
         }
     }
-
 
 }

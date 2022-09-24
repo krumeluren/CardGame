@@ -2,6 +2,7 @@
 @using CardGame.Data
 @using Domain
 @using ServiceContracts
+@using Services
 @inject IServiceManager _services
 <h1 class="text-primary">Minigame</h1>
 <h3 class="text-warning">Remaining cards in stack: @CardStack.Cards.Count();</h3>
@@ -18,16 +19,17 @@
 @code {
     public List<MinigameCardHolder> MyDeck { get; set; } = new List<MinigameCardHolder>();
 
-    public CardStack CardStack { get; set; }
+    public ICardStack CardStack { get; set; }
 
     private readonly int _card_count = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        CardStack = new CardStack(_services);
+        CardStack = _services.CardStackService;    
         CardStack.GenerateStack();
+        CardStack.Shuffle();
 
-        InsertCardsInDeck(CardStack.TakeRandom(_card_count));
+        InsertCardsInDeck(CardStack.Take(_card_count));
         StateHasChanged();
     }
 
@@ -50,7 +52,7 @@
         if (card.Selected)
         {
             if (MyDeck.Remove(card))
-                InsertCardsInDeck(CardStack.TakeRandom());
+                InsertCardsInDeck(CardStack.Take());
         }
     }
 

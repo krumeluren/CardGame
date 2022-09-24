@@ -5,12 +5,13 @@ namespace Services;
 
 public sealed class ServiceManager : IServiceManager
 {
-	private readonly CardService _cardService;
+
+    private readonly CardStack _cardStackService;
 
     public ServiceManager(IRepoManager repoManager)
 	{
-        _cardService = new CardService(repoManager);
+        _cardStackService = new CardStack(repoManager);
     }
 
-    public ICardService CardService => _cardService;
+    public ICardStack CardStackService => _cardStackService;
 }

@@ -2,5 +2,5 @@
 
 public interface IServiceManager
 {
-    ICardService CardService { get; }
+    ICardStack CardStackService { get; }
 }

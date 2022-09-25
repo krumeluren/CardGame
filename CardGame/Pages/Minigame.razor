@@ -19,13 +19,14 @@
 @code {
     public List<MinigameCardHolder> MyDeck { get; set; } = new List<MinigameCardHolder>();
 
-    public ICardStack CardStack { get; set; }
+    public MinigameCardStack CardStack { get; set; }
 
     private readonly int _card_count = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        CardStack = _services.CardStackService;    
+
+        CardStack = new MinigameCardStack(_services);
         CardStack.GenerateStack();
         CardStack.Shuffle();
 
@@ -49,11 +50,8 @@
 
     private void ReplaceCard(MinigameCardHolder card)
     {
-        if (card.Selected)
-        {
-            if (MyDeck.Remove(card))
-                InsertCardsInDeck(CardStack.Take());
-        }
+        if (MyDeck.Remove(card))
+            InsertCardsInDeck(CardStack.Take()); 
     }
 
     private void InsertCardsInDeck(List<Card> cardsToTakeFrom)

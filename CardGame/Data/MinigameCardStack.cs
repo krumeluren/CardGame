@@ -1,11 +1,13 @@
 ﻿using Domain;
 using ServiceContracts;
 
+
 namespace CardGame.Data;
 
 public class MinigameCardStack
 {
     public List<Card> Cards { get; set; }
+    
     public IServiceManager service { get; set; }
 
     public MinigameCardStack(IServiceManager serviceManager)

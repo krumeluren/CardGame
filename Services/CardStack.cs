@@ -34,7 +34,4 @@ public class CardStack : ICardStack
         }
         return cardsToTake;
     }
-
-
-
 }

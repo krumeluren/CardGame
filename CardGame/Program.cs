@@ -1,5 +1,6 @@
 
 using CardGame;
+using CardGame.Data;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using RepositoryContracts;

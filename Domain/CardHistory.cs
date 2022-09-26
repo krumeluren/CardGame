@@ -11,7 +11,8 @@ public class CardHistory
     public int CardId { get; set; }
     public Card Card { get; set; }
 
-    [ForeignKey("Player")]
     public int PlayerId { get; set; }
     public Player Player { get; set; }
+
+    public DateTime Timestamp { get; set; } = DateTime.Now;
 }

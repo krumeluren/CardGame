@@ -41,7 +41,7 @@ public class MinigameCardStack
         UsedCards.Add(usedCard);
     }
 
-    public void Reset()
+    private void Reset()
     {
         Cards = UsedCards;
         UsedCards = new List<Card>();

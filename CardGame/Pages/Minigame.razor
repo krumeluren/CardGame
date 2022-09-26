@@ -4,6 +4,11 @@
 @using ServiceContracts
 @using Services
 @inject IServiceManager _services
+<span>User</span>
+<input type="text" @bind-value=Player.Name/>
+
+<div> @Player.Name</div>
+
 <h1 class="text-primary">Minigame</h1>
 <h3 class="text-warning">Remaining cards: @CardStack.Cards.Count()</h3>
 
@@ -11,14 +16,18 @@
 
 <button class="btn btn-primary" @onclick="ReplaceCheckedCards">Draw new cards</button>
 
-@if (MyDeck is not null)
+
+
+@if (Deck is not null)
 {
-    <Deck MinigameCards=@MyDeck></Deck>
+    <Deck MinigameCards=@Deck></Deck>
 }
 
 
 @code {
-    public List<MinigameCardHolder> MyDeck { get; set; } = new List<MinigameCardHolder>();
+    public List<MinigameCardHolder> Deck { get; set; } = new List<MinigameCardHolder>();
+
+    public BlazorPlayer Player = new BlazorPlayer();
 
     public MinigameCardStack CardStack { get; set; }
 
@@ -37,23 +46,24 @@
     private void ReplaceCheckedCards()
     {
         var cardsToReplace = new List<MinigameCardHolder>();
-        foreach (var card in MyDeck)
+        foreach (var card in Deck)
         {
-            if (card.Selected)
+            if (card.IsSelected)
                 cardsToReplace.Add(card);
         }
         foreach (var card in cardsToReplace)
         {
-            ReplaceCard(card);
+            TakeNewCard(card);
         }
     }
 
-    private void ReplaceCard(MinigameCardHolder card)
+    private void TakeNewCard(MinigameCardHolder oldCard)
     {
-        if (MyDeck.Remove(card))
+        if (Deck.Remove(oldCard))
         {
-            InsertCardsInDeck(CardStack.Take());   
-            CardStack.Used(card.Card);
+            var newCard = CardStack.Take(1);
+            InsertCardsInDeck(newCard);
+            CardStack.Used(oldCard.Card);
         }  
     }
 
@@ -61,7 +71,8 @@
     {
         foreach (var card in cardsToTakeFrom)
         {
-            MyDeck.Add(new MinigameCardHolder(card));
+            _services.PlayerService.AddCardHistory(Player.Name ?? "Guest", card);
+            Deck.Add(new MinigameCardHolder(card));
         }
     }
 

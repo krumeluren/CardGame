@@ -8,7 +8,7 @@ namespace CardGame.Data;
 public class MinigameCardHolder
 {
     public Card Card { get; set; } = null!;
-    public bool Selected { get; set; }
+    public bool IsSelected { get; set; }
 
     public MinigameCardHolder(Card card)
     {

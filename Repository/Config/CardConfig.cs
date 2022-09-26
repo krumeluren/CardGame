@@ -3,7 +3,7 @@ using Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Repository;
+namespace Repository.Config;
 
 internal class CardConfig : IEntityTypeConfiguration<Card>
 {
@@ -40,7 +40,7 @@ internal class CardConfig : IEntityTypeConfiguration<Card>
             new Card { Id = 24, Suit = "Diamonds", Number = "Jack" },
             new Card { Id = 25, Suit = "Diamonds", Number = "Queen" },
             new Card { Id = 26, Suit = "Diamonds", Number = "King" },
-            
+
             new Card { Id = 27, Suit = "Spades", Number = "Ace" },
             new Card { Id = 28, Suit = "Spades", Number = "Two" },
             new Card { Id = 29, Suit = "Spades", Number = "Three" },

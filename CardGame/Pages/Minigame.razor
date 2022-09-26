@@ -5,12 +5,13 @@
 @using Services
 @inject IServiceManager _services
 <h1 class="text-primary">Minigame</h1>
-<h3 class="text-warning">Remaining cards in stack: @CardStack.Cards.Count();</h3>
+<h3 class="text-warning">Remaining cards: @CardStack.Cards.Count()</h3>
 
+<h3 class="text-danger">Used cards: @CardStack.UsedCards.Count()</h3>
 
 <button class="btn btn-primary" @onclick="ReplaceCheckedCards">Draw new cards</button>
 
-@if (true)
+@if (MyDeck is not null)
 {
     <Deck MinigameCards=@MyDeck></Deck>
 }
@@ -25,7 +26,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-
         CardStack = new MinigameCardStack(_services);
         CardStack.GenerateStack();
         CardStack.Shuffle();
@@ -51,7 +51,10 @@
     private void ReplaceCard(MinigameCardHolder card)
     {
         if (MyDeck.Remove(card))
-            InsertCardsInDeck(CardStack.Take()); 
+        {
+            InsertCardsInDeck(CardStack.Take());   
+            CardStack.Used(card.Card);
+        }  
     }
 
     private void InsertCardsInDeck(List<Card> cardsToTakeFrom)

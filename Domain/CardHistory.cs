@@ -6,7 +6,7 @@ namespace Domain;
 public class CardHistory
 {
     public int Id { get; set; }
-    
+
     [ForeignKey("Card")]
     public int CardId { get; set; }
     public Card Card { get; set; }

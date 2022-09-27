@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Microsoft.EntityFrameworkCore;
 using RepositoryContracts;
 
 namespace Repository.EntityRepos;
@@ -10,8 +11,8 @@ public class CardHistoryRepo : RepoBase<CardHistory>, ICardHistoryRepo
     }
 
     public void Add(CardHistory cardHistory) => Create(cardHistory);
-    
 
-    public IEnumerable<CardHistory> GetAll() => FindAll().ToList();
-    
+
+    public IEnumerable<CardHistory> GetAll() => FindAll().Include(ch => ch.Card).ToList();
+
 }

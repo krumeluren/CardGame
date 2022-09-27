@@ -13,18 +13,25 @@ public class PlayerService : IPlayerService
     {
         _repoManager = repoManager;
     }
-    
+
     public void AddCardHistory(string playerName, Card card)
     {
+        if (playerName is null)
+            return;
+        
         var player = _repoManager.Players.GetByName(playerName);
+        
         if (player is null)
-        {
-            player = new Player() { Name = playerName };
-            _repoManager.Players.Add(player);
-        }
+            CreatePlayer(new Player());
 
+        _repoManager.PlayerCardHistory.Add(new CardHistory() { CardId = card.Id, PlayerId = player.Id });
         _repoManager.Save();
-        _repoManager.PlayerCardHistory.Add(new CardHistory() { CardId = card.Id, PlayerId = player.Id});
+    }
+
+    public void CreatePlayer(Player player)
+    {
+        player.Name = player.Name ?? "Guest";
+        _repoManager.Players.Add(player);
         _repoManager.Save();
     }
 
@@ -34,6 +41,11 @@ public class PlayerService : IPlayerService
         if (player is null)
             return new List<CardHistory>();
 
-        return _repoManager.PlayerCardHistory.GetAll().Where(x => x.PlayerId == player.Id).ToList();
+        return _repoManager.PlayerCardHistory.GetAll().
+            Where(x => x.PlayerId == player.Id).ToList();
     }
+
+    public Player GetPlayerByName(string playerName) => 
+        _repoManager.Players.GetByName(playerName) ?? new Player();
+    
 }

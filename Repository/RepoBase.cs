@@ -1,4 +1,5 @@
-﻿using RepositoryContracts;
+﻿using Microsoft.EntityFrameworkCore;
+using RepositoryContracts;
 using System.Linq.Expressions;
 
 namespace Repository;
@@ -10,7 +11,7 @@ public class RepoBase<T> : IRepoBase<T> where T : class
     {
         _context = context;
     }
-
+    
     public IQueryable<T> FindAll() => _context.Set<T>();
 
     public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) => _context.Set<T>().Where(expression);

@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Repository;
 
+/// <summary>
+/// Class used to inject dbcontext from a separate class library
+/// </summary>
 public class RepositoryContextFactory : IDesignTimeDbContextFactory<RepoContext>
 {
     public RepoContext CreateDbContext(string[] args)

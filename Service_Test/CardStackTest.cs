@@ -1,36 +1,28 @@
-﻿
-
-
-using CardGame.Data;
-using CardGame.Pages;
-using Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Domain;
 using Moq;
-using Repository;
 using RepositoryContracts;
 using Services;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Service_Test;
 
 public class CardStackTest
 {
 
-    private readonly CardStack _cardStack_UnderTest;
+    private readonly CardStackService _cardStack_UnderTest;
     private readonly Mock<IRepoManager> _repoManagerMock = new Mock<IRepoManager>();
     public CardStackTest()
     {
-        _cardStack_UnderTest = new CardStack(_repoManagerMock.Object);
+        _cardStack_UnderTest = new CardStackService(_repoManagerMock.Object);
     }
-   
+
 
     [Fact]
     public List<Card> Shuffle_ShouldReturnAListOfSameItems()
     {
         //Arrange
-        var CardStack = new CardStack(_repoManagerMock.Object);
+        var CardStack = new CardStackService(_repoManagerMock.Object);
 
-        var cards = new List<Card>() { 
+        var cards = new List<Card>() {
             new Card() { Id = 1 },
             new Card() { Id = 2 },
             new Card() { Id = 3 },

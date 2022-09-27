@@ -4,7 +4,7 @@ namespace RepositoryContracts;
 
 public interface IPlayerRepo
 {
-    public Player GetByName(string name);
+    Player GetByName(string name);
 
-    public void Add(Player player);
+    void Add(Player player);
 }

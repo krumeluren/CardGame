@@ -5,7 +5,7 @@ namespace RepositoryContracts;
 
 public interface ICardHistoryRepo
 {
-    public void Add(CardHistory cardHistory);
+    void Add(CardHistory cardHistory);
 
-    public IEnumerable<CardHistory> GetAll();
+    IEnumerable<CardHistory> GetAll();
 }

@@ -1,0 +1,42 @@
+﻿@page "/history/{PlayerName}"
+@using Domain
+@using ServiceContracts
+@inject IServiceManager _services
+
+<h1 class="text-primary">Card history of</h1>
+<h2 class="text-secondary">@PlayerName</h2>
+@if (PlayerName is null)
+{
+    <h6 class="text-warning">Player does not exist.</h6>
+}
+else if(CardHistory.Count() == 0)
+{
+    <h6 class="text-warning">Player has never played.</h6>
+}
+
+@foreach (var card in CardHistory)
+{
+    <PlayerCardHistory 
+        Time=@card.Timestamp 
+        Number=@card.Card.Number 
+        Suit=@card.Card.Suit >
+    </PlayerCardHistory>
+}
+
+@code {
+    [Parameter]
+    public string PlayerName { get; set; }
+
+    private List<CardHistory> CardHistory { get; set; } = new List<CardHistory>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var player = _services.PlayerService.GetPlayerByName(PlayerName);
+        PlayerName = player.Name;
+        if (PlayerName is null)
+            return;
+
+        CardHistory = _services.PlayerService.GetAllHistory(PlayerName);
+        CardHistory = CardHistory.OrderByDescending(x => x.Timestamp).ToList();
+    }
+}

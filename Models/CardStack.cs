@@ -1,10 +1,9 @@
 ﻿using Domain;
 using ServiceContracts;
 
+namespace Models;
 
-namespace CardGame.Data;
-
-public class MinigameCardStack
+public class CardStack
 {
     public List<Card> Cards { get; set; } = new List<Card>();
 
@@ -12,7 +11,7 @@ public class MinigameCardStack
 
     public IServiceManager service { get; set; }
 
-    public MinigameCardStack(IServiceManager serviceManager)
+    public CardStack(IServiceManager serviceManager)
     {
         service = serviceManager;
     }
@@ -22,24 +21,18 @@ public class MinigameCardStack
         //TODO: remove. used for testing
         Cards.RemoveRange(0, 40);
     }
-    
-    public void Shuffle()
-    {
-        Cards = service.CardStackService.Shuffle(Cards);
-    }
+
+    public void Shuffle() => Cards = service.CardStackService.Shuffle(Cards);
 
     public List<Card> Take(int count = 1)
     {
         if (Cards.Count < count)
             Reset();
-        
+
         return service.CardStackService.Take(Cards, count);
     }
 
-    public void Used(Card usedCard)
-    {
-        UsedCards.Add(usedCard);
-    }
+    public void AddToUsedCards(Card usedCard) => UsedCards.Add(usedCard);
 
     private void Reset()
     {

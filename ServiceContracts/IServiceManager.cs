@@ -2,6 +2,6 @@
 
 public interface IServiceManager
 {
-    ICardStack CardStackService { get; }
+    ICardStackService CardStackService { get; }
     IPlayerService PlayerService { get; }
 }

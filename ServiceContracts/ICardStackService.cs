@@ -2,7 +2,7 @@
 
 namespace ServiceContracts;
 
-public interface ICardStack
+public interface ICardStackService
 {
     /// <summary>
     /// Generate a stack of cards
@@ -23,5 +23,5 @@ public interface ICardStack
     /// <param name="cards">The list to be shuffled</param>
     /// <returns>A shuffled list of the param list</returns>
     List<Card> Shuffle(List<Card> cards);
-    
+
 }

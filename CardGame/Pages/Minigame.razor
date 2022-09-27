@@ -1,79 +1,44 @@
 ﻿@page "/minigame"
 @using CardGame.Data
-@using Domain
 @using ServiceContracts
-@using Services
+
 @inject IServiceManager _services
 <span>User</span>
-<input type="text" @bind-value=Player.Name/>
+<input type="text" @bind-value=PlayerName/>
+<button @onclick="SetName">Login</button>
 
-<div> @Player.Name</div>
+<div>@Table.PlayerName</div>
 
 <h1 class="text-primary">Minigame</h1>
-<h3 class="text-warning">Remaining cards: @CardStack.Cards.Count()</h3>
+<h3 class="text-warning">Remaining cards: @Table.CardsCount</h3>
+<h3 class="text-danger">Used cards: @Table.UsedCardsCount</h3>
 
-<h3 class="text-danger">Used cards: @CardStack.UsedCards.Count()</h3>
+<button class="btn btn-primary" @onclick="Table.ReplaceCards">Draw new cards</button>
 
-<button class="btn btn-primary" @onclick="ReplaceCheckedCards">Draw new cards</button>
-
-
-
-@if (Deck is not null)
+@if (Table.Deck is not null)
 {
-    <Deck MinigameCards=@Deck></Deck>
+    <Deck MinigameCards=@Table.Deck></Deck>
 }
 
-
 @code {
-    public List<MinigameCardHolder> Deck { get; set; } = new List<MinigameCardHolder>();
 
-    public BlazorPlayer Player = new BlazorPlayer();
+    public string PlayerName { get; set; } 
 
-    public MinigameCardStack CardStack { get; set; }
+    public MinigameTable Table { get; set; }
 
-    private readonly int _card_count = 5;
+    private readonly int _deckSize = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        CardStack = new MinigameCardStack(_services);
-        CardStack.GenerateStack();
-        CardStack.Shuffle();
-
-        InsertCardsInDeck(CardStack.Take(_card_count));
+        Table = new MinigameTable(_services);
+        Table.CreateCardStack();
+        Table.ShuffleCardStack();
+        Table.TakeCards(_deckSize);
         StateHasChanged();
     }
-
-    private void ReplaceCheckedCards()
+    private void SetName()
     {
-        var cardsToReplace = new List<MinigameCardHolder>();
-        foreach (var card in Deck)
-        {
-            if (card.IsSelected)
-                cardsToReplace.Add(card);
-        }
-        foreach (var card in cardsToReplace)
-        {
-            TakeNewCard(card);
-        }
-    }
-
-    private void TakeNewCard(MinigameCardHolder oldCard)
-    {
-        if (Deck.Remove(oldCard))
-        {
-            var newCard = CardStack.Take(1);
-            InsertCardsInDeck(newCard);
-            CardStack.Used(oldCard.Card);
-        }  
-    }
-
-    private void InsertCardsInDeck(List<Card> cardsToTakeFrom)
-    {
-        foreach (var card in cardsToTakeFrom)
-        {
-            _services.PlayerService.AddCardHistory(Player.Name ?? "Guest", card);
-            Deck.Add(new MinigameCardHolder(card));
-        }
+        Table.SetPlayerName(PlayerName);
     }
 
 }

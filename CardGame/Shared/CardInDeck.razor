@@ -1,13 +1,12 @@
 ﻿@using CardGame.Data
 @using Domain
 
-
-<div>
-    <h4 class="text-dark">@MinigameCard.Card.Suit @MinigameCard.Card.Number</h4>
-    <input type="checkbox" checked=@MinigameCard.IsSelected @bind-value="MinigameCard.IsSelected" />
-    <h1>@MinigameCard.IsSelected</h1>
+<div style="background-color: lightblue">
+    <h4 class="text-dark">@MinigameCard.Card.Suit</h4>
+    <h5 class="text-dark">@MinigameCard.Card.Number</h5>
+    <input style="width: 50px; height: 50px; " type="checkbox" checked=@MinigameCard.IsSelected @bind-value="MinigameCard.IsSelected" />
+    <h4>@MinigameCard.IsSelected</h4>
 </div>
-
 
 @code {
     [Parameter]

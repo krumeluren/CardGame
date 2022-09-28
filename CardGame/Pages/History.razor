@@ -2,6 +2,10 @@
 @using Domain
 @using ServiceContracts
 @inject IServiceManager _services
+@inject NavigationManager _navigationManager
+
+<input type="text" @bind-value=NavigateToPlayerName />
+<button @onclick="NavigateToUserURL">Get user</button>
 
 <h1 class="text-primary">Card history of</h1>
 <h2 class="text-secondary">@PlayerName</h2>
@@ -27,6 +31,8 @@ else if(CardHistory.Count() == 0)
     [Parameter]
     public string PlayerName { get; set; }
 
+    private string NavigateToPlayerName { get; set; }
+
     private List<CardHistory> CardHistory { get; set; } = new List<CardHistory>();
 
     protected override async Task OnInitializedAsync()
@@ -34,10 +40,16 @@ else if(CardHistory.Count() == 0)
         var player = _services.PlayerService.GetPlayerByName(PlayerName);
         if (player is null)
             return;
-            
+
         PlayerName = player.Name;
-        
+
         CardHistory = _services.PlayerService.GetAllHistory(PlayerName);
         CardHistory = CardHistory.OrderByDescending(x => x.Timestamp).ToList();
     }
+
+    private void NavigateToUserURL()
+    {
+        _navigationManager.NavigateTo($"/history/{NavigateToPlayerName}", forceLoad: true);
+    } 
+    
 }

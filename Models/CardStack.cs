@@ -16,8 +16,6 @@ public class CardStack
     public void GenerateStack()
     {
         Cards = service.CardStackService.GenerateStack();
-        //TODO: remove. used for testing
-        Cards.RemoveRange(0, 40);
     }
 
     public void Shuffle() => Cards = service.CardStackService.Shuffle(Cards);

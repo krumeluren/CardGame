@@ -2,7 +2,12 @@
 @using Domain
 <h3 class="text-secondary">Deck</h3>
 
-<div style="display: inline-flex; margin: auto">
+<div 
+    style=
+    "display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+     grid-gap: 20px;">
+
     @foreach(var card in MinigameCards){
         <CardInDeck MinigameCard=@card></CardInDeck>
     }

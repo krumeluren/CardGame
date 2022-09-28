@@ -32,10 +32,11 @@ else if(CardHistory.Count() == 0)
     protected override async Task OnInitializedAsync()
     {
         var player = _services.PlayerService.GetPlayerByName(PlayerName);
-        PlayerName = player.Name;
-        if (PlayerName is null)
+        if (player is null)
             return;
-
+            
+        PlayerName = player.Name;
+        
         CardHistory = _services.PlayerService.GetAllHistory(PlayerName);
         CardHistory = CardHistory.OrderByDescending(x => x.Timestamp).ToList();
     }

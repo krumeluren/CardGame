@@ -22,7 +22,11 @@ public class PlayerService : IPlayerService
         var player = _repoManager.Players.GetByName(playerName);
         
         if (player is null)
-            CreatePlayer(new Player());
+        {
+            player = new Player();
+            player.Name = playerName;
+            CreatePlayer(player);
+        }              
 
         _repoManager.PlayerCardHistory.Add(new CardHistory() { CardId = card.Id, PlayerId = player.Id });
         _repoManager.Save();
@@ -30,7 +34,6 @@ public class PlayerService : IPlayerService
 
     public void CreatePlayer(Player player)
     {
-        player.Name = player.Name ?? "Guest";
         _repoManager.Players.Add(player);
         _repoManager.Save();
     }
@@ -45,7 +48,7 @@ public class PlayerService : IPlayerService
             Where(x => x.PlayerId == player.Id).ToList();
     }
 
-    public Player GetPlayerByName(string playerName) => 
-        _repoManager.Players.GetByName(playerName) ?? new Player();
+    public Player? GetPlayerByName(string playerName) =>
+        _repoManager.Players.GetByName(playerName);
     
 }

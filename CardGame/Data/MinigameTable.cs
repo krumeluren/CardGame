@@ -6,39 +6,30 @@ namespace CardGame.Data;
 public class MinigameTable
 {
     private IServiceManager _service { get; set; }
-    private CardStack CardStack { get; set; }
+    private Table _table { get; set; }  
     public List<MinigameCardHolder> Deck { get; set; }
     public string PlayerName { get; set; }
-
-    public int UsedCardsCount
-    {
-        get { return CardStack.UsedCards.Count(); }
-        set { UsedCardsCount = CardStack.UsedCards.Count(); }
-    }
-
-    public int CardsCount
-    {
-        get { return CardStack.Cards.Count(); }
-        set { CardsCount = CardStack.Cards.Count(); }
-    }
 
     public MinigameTable(IServiceManager service)
     {
         _service = service;
         Deck = new List<MinigameCardHolder>();
-        CardStack = new CardStack(_service);
+        _table = new Table(_service);
     }
 
-    public void CreateCardStack() => CardStack.GenerateStack();
+    public int CardCount() => _table.CardStack.Cards.Count;
+
+    public int UsedCardCount() => _table.UsedCardsStack.Cards.Count;
+
+    public void CreateCardStack() => _table.GenerateStack();
 
     public void SetPlayerName(string name) => PlayerName = name;
 
-    public void ShuffleCardStack() => CardStack.Shuffle();
-
+    public void ShuffleCardStack() => _table.CardStack.Shuffle();
 
     public void TakeCards(int count)
     {
-        var cards = CardStack.Take(count);
+        var cards = _table.Take(count);
         foreach (var card in cards)
         {
             _service.PlayerService.AddCardHistory(PlayerName, card);
@@ -54,10 +45,8 @@ public class MinigameTable
             if (Deck.Remove(card))
             {
                 TakeCards(1);
-                CardStack.AddToUsedCards(card.Card);
+                _table.Used(card.Card);
             }
         }
     }
-
-
 }

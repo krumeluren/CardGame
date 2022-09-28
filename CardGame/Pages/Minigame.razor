@@ -7,38 +7,38 @@
 <input type="text" @bind-value=PlayerName/>
 <button @onclick="SetName">Login</button>
 
-<div>@Table.PlayerName</div>
+<div>@GameTable.PlayerName</div>
 
-<h1 class="text-primary">Minigame</h1>
-<h3 class="text-warning">Remaining cards: @Table.CardsCount</h3>
-<h3 class="text-danger">Used cards: @Table.UsedCardsCount</h3>
+<h1 class="text-primary">Game</h1>
+<h3 class="text-warning">Remaining cards: @GameTable.CardCount()</h3>
+<h3 class="text-danger">Used cards: @GameTable.UsedCardCount()</h3>
 
-<button class="btn btn-primary" @onclick="Table.ReplaceCards">Draw new cards</button>
+<button class="btn btn-primary" @onclick="GameTable.ReplaceCards">Draw new cards</button>
 
-@if (Table.Deck is not null)
+@if (GameTable.Deck is not null)
 {
-    <Deck MinigameCards=@Table.Deck></Deck>
+    <Deck MinigameCards=@GameTable.Deck></Deck>
 }
 
 @code {
 
     public string PlayerName { get; set; } 
-
-    public MinigameTable Table { get; set; }
+    
+    public MinigameTable GameTable { get; set; }
 
     private readonly int _deckSize = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        Table = new MinigameTable(_services);
-        Table.CreateCardStack();
-        Table.ShuffleCardStack();
-        Table.TakeCards(_deckSize);
+        GameTable = new MinigameTable(_services);
+        GameTable.CreateCardStack();
+        GameTable.ShuffleCardStack();
+        GameTable.TakeCards(_deckSize);
         StateHasChanged();
     }
     private void SetName()
     {
-        Table.SetPlayerName(PlayerName);
+        GameTable.SetPlayerName(PlayerName);
     }
 
 }

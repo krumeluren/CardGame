@@ -8,7 +8,12 @@ public class PlayerRepo : RepoBase<Player>, IPlayerRepo
     public PlayerRepo(RepoContext repoContext) : base(repoContext)
     { }
 
-    public void Add(Player player) => Create(player);
+    public void Add(Player player) 
+    {
+        if (player.Name is null)
+            player.Name = Guid.NewGuid().ToString();
+        Create(player);            
+    }
 
     public Player GetByName(string name)
     {

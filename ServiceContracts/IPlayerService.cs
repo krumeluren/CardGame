@@ -9,7 +9,7 @@ public interface IPlayerService
 
     List<CardHistory> GetAllHistory(string playerName);
 
-    Player GetPlayerByName(string playerName);
+    Player? GetPlayerByName(string playerName);
 
     void CreatePlayer(Player player);
 }

@@ -21,16 +21,21 @@ public class CardStackService : ICardStackService
         return cards.OrderBy(x => random.Next()).ToList();
     }
 
-    public List<Card> Take(List<Card> cards, int count = 1)
+    public List<Card> GetLastCards(List<Card> cards, int count = 1)
     {
+        var inputCards = cards.ToList();  //Clone reference list to not modify original
         var cardsToTake = new List<Card>();
 
+        if (inputCards.Count < count)
+            return cardsToTake;
+        
         for (int i = 0; i < count; i++)
         {
-            var card = cards[cards.Count - 1];
-            if (cards.Remove(card))
+            var card = inputCards.Last();
+            if (inputCards.Remove(card))
                 cardsToTake.Add(card);
         }
+        
         return cardsToTake;
     }
 }

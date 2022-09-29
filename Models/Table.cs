@@ -22,15 +22,17 @@ public class Table
     {
         if (CardStack.Cards.Count < count)
             Reset();
+        if (CardStack.Cards.Count < count)
+            return new List<Card>();
 
-        return CardStack.Take(count);
+        return CardStack.TakeFrom(count);
     }
-    
+
     public void Used(Card usedCard) => UsedCardsStack.AddTo(usedCard);
 
     private void Reset()
     {
-        CardStack.Cards = UsedCardsStack.Cards;
+        CardStack.Cards = CardStack.Cards.Concat(UsedCardsStack.Cards).ToList();
         CardStack.Shuffle();
         UsedCardsStack.Cards.Clear(); 
     }

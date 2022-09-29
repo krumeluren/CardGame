@@ -18,13 +18,19 @@ public class CardStack
         Cards = service.CardStackService.GenerateStack();
     }
 
-    public void Shuffle() => Cards = service.CardStackService.Shuffle(Cards);
+    public void Shuffle() 
+    {
+        var random = new Random();
+        Cards = Cards.OrderBy(x => random.Next()).ToList();
+    }
 
-    public List<Card> Take(int count = 1)
+    public List<Card> TakeFrom(int count = 1)
     {
         if (Cards.Count < count)
             return new List<Card>();
-        return service.CardStackService.Take(Cards, count);
+        var returnedCards =  service.CardStackService.GetLastCards(Cards, count);
+        Cards = Cards.Except(returnedCards).ToList();
+        return returnedCards;
     }
     
     public void AddTo(Card usedCard) => Cards.Add(usedCard);

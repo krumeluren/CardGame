@@ -2,6 +2,9 @@
 
 namespace ServiceContracts;
 
+/// <summary>
+/// Common logic and data access for cardstacks.
+/// </summary>
 public interface ICardStackService
 {
     /// <summary>

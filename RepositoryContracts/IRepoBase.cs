@@ -1,6 +1,10 @@
 ﻿using System.Linq.Expressions;
 
 namespace RepositoryContracts;
+
+/// <summary>
+/// This interface contains common methods for all entity repositories.
+/// </summary>
 public interface IRepoBase<T>
 {
     IQueryable<T> FindAll();

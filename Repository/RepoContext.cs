@@ -4,6 +4,9 @@ using Repository.Config;
 
 namespace Repository;
 
+/// <summary>
+/// Implementation of dbcontext.
+/// </summary>
 public class RepoContext : DbContext
 {
     public RepoContext(DbContextOptions options) : base(options) { }

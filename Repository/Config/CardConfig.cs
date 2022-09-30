@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Repository.Config;
 
+/// <summary>
+/// Card configuration for the dbcontext.
+/// </summary>
 internal class CardConfig : IEntityTypeConfiguration<Card>
 {
     public void Configure(EntityTypeBuilder<Card> builder)

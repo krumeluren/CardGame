@@ -3,6 +3,9 @@ using ServiceContracts;
 
 namespace CardGame.Data;
 
+/// <summary>
+/// Minigame table model
+/// </summary>
 public class MinigameTable
 {
     private IServiceManager _service { get; set; }

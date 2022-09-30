@@ -3,6 +3,8 @@ Denna applikation  bygger på EntityFramework och code-first med dataåtkomst ti
 Som user interface använder jag Blazor Server app men det går att bygga fler olika, t.ex webbapi
 Applikationen har separerade lager enligt Clean architecture / onion architecture för framtida skalbarhet.
 
+Det finns ingen advancerad inloggning eller lösenord nu utan man använder ett unikt namn för att spara sin historik. 
+
 För att starta:
 1: För att skapa en Databas behövs SQL Server. T.ex Microsoft SQL Server Managment.
 2: Öppna View -> Other Windows -> Package Manager Console
